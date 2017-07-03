@@ -1,9 +1,12 @@
 import React from 'react';
+import {inject} from 'mobx-react';
+import {Redirect} from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Label from '../components/Label';
 
+@inject('appStore')
 export default class Login extends React.Component {
   constructor() {
     super();
@@ -13,9 +16,19 @@ export default class Login extends React.Component {
       pwd: '',
     }
   }
+
+  submitForm(e) {
+    e.preventDefault();
+    this.props.appStore.signIn(this.state)
+  }
+  
   render() {
+    if (this.props.appStore.user) {
+      return <Redirect to="/" />
+    }
+
     return (
-      <LoginForm>
+      <LoginForm onSubmit={ (e) => {this.submitForm(e) }}>
         <h3>Login</h3>
         <p>
           <Label name={'uid'}>email</Label>
@@ -25,7 +38,7 @@ export default class Login extends React.Component {
           <label htmlFor="uid">password</label>
           <Input type='password' name="pwd" onInput={(e) => this.setState({pwd: e.target.value})}/>
         </p>
-        <Button>Login</Button>
+        <Button type="submit">Login</Button>
       </LoginForm>
     );
   }

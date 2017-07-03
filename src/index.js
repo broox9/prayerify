@@ -1,8 +1,14 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {Provider} from 'mobx-react';
 
 import App from './App';
+import appStore from './stores/appStore';
 
-import appStore from './store';
+const AppWithStore = (
+  <Provider appStore={appStore}>
+    <App />
+  </Provider>
+);
 
-render(<App appStore={appStore}/>, document.querySelector('main'));
+render(AppWithStore, document.querySelector('main'));

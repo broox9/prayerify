@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ejs = require('ejs')
 
 module.exports = {
   context: __dirname,
@@ -16,6 +17,11 @@ module.exports = {
     port: 5009,
     watchContentBase: true,
     // hot: true,
+    setup(app) {
+      app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'public/index.html'));
+      });
+    }
   },
   module: {
     rules: [

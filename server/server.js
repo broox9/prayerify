@@ -5,7 +5,7 @@ server.set('view engine', 'pug');
 server.set('views', __dirname + '/views');
 server.use(express.static(process.cwd() + '/public'));
 
-server.get('/', (req, res) => {
+server.get('*', (req, res) => {
   res.render('index', {pageTitle: 'Some App'});
 });
 
