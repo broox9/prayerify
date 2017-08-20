@@ -1,10 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
-const ejs = require('ejs')
 
 module.exports = {
   context: __dirname,
-  devtool: 'source-map', 
+  devtool: 'source-map',
   entry: {
     app: './src/index.js',
   },
@@ -26,7 +25,7 @@ module.exports = {
   module: {
     rules: [
       //js, jsx
-      { 
+      {
         test: /\.js$/,
         include: [
           path.resolve(__dirname, 'src')

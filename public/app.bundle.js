@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 137:
+/***/ 136:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15,35 +15,37 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
-var _templateObject = _taggedTemplateLiteral(['\n  background-color: #ddd;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-evenly;\n  padding: 10px;\n  box-sizing: border-box;\n\n  a {\n    display: block;\n    text-decoration: none;\n  }\n'], ['\n  background-color: #ddd;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-evenly;\n  padding: 10px;\n  box-sizing: border-box;\n\n  a {\n    display: block;\n    text-decoration: none;\n  }\n']);
+var _templateObject = _taggedTemplateLiteral(['\n  background-color: ', ';\n  height: 100%;\n  width: 100%:\n'], ['\n  background-color: ', ';\n  height: 100%;\n  width: 100%:\n']);
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _mobxReactDevtools = __webpack_require__(201);
+var _mobxReactDevtools = __webpack_require__(194);
 
 var _mobxReactDevtools2 = _interopRequireDefault(_mobxReactDevtools);
 
-var _styledComponents = __webpack_require__(19);
+var _styledComponents = __webpack_require__(14);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _firebase = __webpack_require__(87);
+var _firebase = __webpack_require__(85);
 
 var _mobx = __webpack_require__(43);
 
-var _mobxReact = __webpack_require__(21);
+var _mobxReact = __webpack_require__(19);
 
-var _reactRouterDom = __webpack_require__(50);
+var _reactRouterDom = __webpack_require__(29);
 
 var _PrivateRoute = __webpack_require__(140);
 
 var _PrivateRoute2 = _interopRequireDefault(_PrivateRoute);
 
-__webpack_require__(142);
+var _globalStyles = __webpack_require__(141);
 
-var _history = __webpack_require__(149);
+var _globalStyles2 = _interopRequireDefault(_globalStyles);
+
+var _history = __webpack_require__(86);
 
 var _history2 = _interopRequireDefault(_history);
 
@@ -59,13 +61,21 @@ var _NewPrayer = __webpack_require__(147);
 
 var _NewPrayer2 = _interopRequireDefault(_NewPrayer);
 
+var _PrayerDetails = __webpack_require__(536);
+
+var _PrayerDetails2 = _interopRequireDefault(_PrayerDetails);
+
 var _User = __webpack_require__(148);
 
 var _User2 = _interopRequireDefault(_User);
 
-var _Header = __webpack_require__(139);
+var _Header = __webpack_require__(138);
 
 var _Header2 = _interopRequireDefault(_Header);
+
+var _NavItems = __webpack_require__(139);
+
+var _NavItems2 = _interopRequireDefault(_NavItems);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83,7 +93,9 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 //components
 
 
-var NavItems = _styledComponents2.default.nav(_templateObject);
+var StyledApp = _styledComponents2.default.div(_templateObject, function (props) {
+  return props.theme.bgColor || '#fff';
+});
 
 var App = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = (0, _mobxReact.observer)(_class = function (_React$Component) {
   _inherits(App, _React$Component);
@@ -114,42 +126,23 @@ var App = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = (0, _mobxRea
         _reactRouterDom.BrowserRouter,
         { history: _history2.default },
         _react2.default.createElement(
-          'div',
-          { id: 'content' },
-          _react2.default.createElement(_Header2.default, { user: appStore.user }),
+          _styledComponents.ThemeProvider,
+          { theme: _globalStyles2.default },
           _react2.default.createElement(
-            NavItems,
-            null,
+            StyledApp,
+            { id: 'content' },
+            _react2.default.createElement(_Header2.default, { user: user }),
+            _react2.default.createElement(_NavItems2.default, { user: user }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
             _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/' },
-              'Home'
-            ),
-            user ? null : _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/login' },
-              'Login'
-            ),
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/user' },
-              'User'
-            ),
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/user/new' },
-              'New'
+              _reactRouterDom.Switch,
+              null,
+              _react2.default.createElement(_PrivateRoute2.default, { exact: true, path: '/user', user: user, component: _User2.default }),
+              _react2.default.createElement(_PrivateRoute2.default, { path: '/prayer/new', user: user, component: _NewPrayer2.default }),
+              _react2.default.createElement(_PrivateRoute2.default, { path: '/prayer/details/:fbId', user: user, component: _PrayerDetails2.default })
             )
-          ),
-          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
-          _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
-          _react2.default.createElement(
-            _reactRouterDom.Switch,
-            null,
-            _react2.default.createElement(_PrivateRoute2.default, { exact: true, path: '/user', user: user, component: _User2.default }),
-            _react2.default.createElement(_PrivateRoute2.default, { path: '/user/new', user: user, component: _NewPrayer2.default })
-          ),
-          _react2.default.createElement(_mobxReactDevtools2.default, null)
+          )
         )
       );
     }
@@ -161,7 +154,7 @@ exports.default = App;
 
 /***/ }),
 
-/***/ 138:
+/***/ 137:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -177,7 +170,7 @@ var _desc, _value, _class, _descriptor, _descriptor2;
 
 var _mobx = __webpack_require__(43);
 
-var _firebase = __webpack_require__(87);
+var _firebase = __webpack_require__(85);
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
@@ -230,23 +223,31 @@ function _initializerWarningHelper(descriptor, context) {
 
 var AppStore = (_class = function () {
   function AppStore() {
+    var _this = this;
+
     _classCallCheck(this, AppStore);
 
     _initDefineProp(this, 'user', _descriptor, this);
 
     _initDefineProp(this, 'prayers', _descriptor2, this);
+
+    this.prayerRef = _firebase.db.ref('/prayers');
+
+    this.prayerRef.on('value', function (snapShot) {
+      _this.prayers = snapShot.val();
+    });
   }
 
   _createClass(AppStore, [{
     key: 'signIn',
     value: function signIn(_ref) {
-      var _this = this;
+      var _this2 = this;
 
       var pwd = _ref.pwd,
           uid = _ref.uid;
 
       _firebase.auth.signInWithEmailAndPassword(uid, pwd).then(function (user) {
-        _this.user = user;
+        _this2.user = user;
         // this.getPrayers()
         console.log('Signed In', user);
       }).catch(function (error) {
@@ -275,9 +276,16 @@ var AppStore = (_class = function () {
       return this.prayers;
     }
   }, {
+    key: 'getPrayer',
+    value: function getPrayer(id) {
+      return this.prayers[id] || null;
+    }
+  }, {
     key: 'submitPrayer',
     value: function submitPrayer(prayer) {
       console.log('prayer', prayer);
+      var newPrayerRef = this.prayerRef.push();
+      newPrayerRef.set(prayer);
     }
   }]);
 
@@ -292,20 +300,19 @@ var AppStore = (_class = function () {
   initializer: function initializer() {
     return {};
   }
-}), _applyDecoratedDescriptor(_class.prototype, 'signIn', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'signIn'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'signOut', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'signOut'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'setUser', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'setUser'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'getPrayers', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'getPrayers'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'submitPrayer', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'submitPrayer'), _class.prototype)), _class);
+}), _applyDecoratedDescriptor(_class.prototype, 'signIn', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'signIn'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'signOut', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'signOut'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'setUser', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'setUser'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'getPrayers', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'getPrayers'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'getPrayer', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'getPrayer'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'submitPrayer', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'submitPrayer'), _class.prototype)), _class);
 
-
-_firebase.db.ref('/prayers').on('value', function (snapShot) {
-  console.log('REFS', snapShot.val() instanceof Array);
-  appStore.prayers = snapShot.val();
-});
+// db.ref('/prayers').on('value', (snapShot) => {
+//   console.log('REFS', snapShot.val() instanceof Array);
+//   appStore.prayers = snapShot.val();
+// })
 
 var appStore = new AppStore();
 exports.default = appStore;
 
 /***/ }),
 
-/***/ 139:
+/***/ 138:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -320,20 +327,27 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
-var _templateObject = _taggedTemplateLiteral(['\n  min-height: 5vh;\n  vertical-align: middle;\n  padding: 1rem;\n  box-sizing: border-box;\n  background-color: papayawhip;\n  text-align: center;\n'], ['\n  min-height: 5vh;\n  vertical-align: middle;\n  padding: 1rem;\n  box-sizing: border-box;\n  background-color: papayawhip;\n  text-align: center;\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n  font-size: 1.5rem;\n  margin: 0;\n  padding: 0;\n  color: palevioletred;\n'], ['\n  font-size: 1.5rem;\n  margin: 0;\n  padding: 0;\n  color: palevioletred;\n']);
+var _templateObject = _taggedTemplateLiteral(['\n  position: relative;\n  min-height: 5vh;\n  vertical-align: middle;\n  padding: 1rem;\n  box-sizing: border-box;\n  background-color: ', ';\n  //border-top: 0.5rem solid ', ';\n  text-align: center;\n'], ['\n  position: relative;\n  min-height: 5vh;\n  vertical-align: middle;\n  padding: 1rem;\n  box-sizing: border-box;\n  background-color: ', ';\n  //border-top: 0.5rem solid ', ';\n  text-align: center;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  font-size: 1.5rem;\n  margin: 0;\n  padding: 0;\n  color: ', ';\n'], ['\n  font-size: 1.5rem;\n  margin: 0;\n  padding: 0;\n  color: ', ';\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  position: absolute;\n  top: 0;\n  right: 1rem;\n  height: 100%;\n  padding: 0 6px;\n  color:', ';\n'], ['\n  position: absolute;\n  top: 0;\n  right: 1rem;\n  height: 100%;\n  padding: 0 6px;\n  color:', ';\n']);
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _styledComponents = __webpack_require__(19);
+var _styledComponents = __webpack_require__(14);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _mobxReact = __webpack_require__(21);
+var _mobxReact = __webpack_require__(19);
 
-var _reactRouterDom = __webpack_require__(50);
+var _reactRouterDom = __webpack_require__(29);
+
+var _reactFeather = __webpack_require__(498);
+
+var _WidthWrapper = __webpack_require__(52);
+
+var _WidthWrapper2 = _interopRequireDefault(_WidthWrapper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -345,9 +359,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var HeaderContainer = _styledComponents2.default.header(_templateObject);
+var HeaderContainer = _styledComponents2.default.header(_templateObject, function (props) {
+  return props.theme.primary;
+}, function (props) {
+  return props.theme.darkPrimary;
+});
 
-var Title = _styledComponents2.default.h1(_templateObject2);
+var Title = _styledComponents2.default.h1(_templateObject2, function (props) {
+  return props.theme.lightPrimary;
+});
+var ActionItem = _styledComponents2.default.div(_templateObject3, function (props) {
+  return props.theme.lightPrimary;
+});
 
 var Header = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = function (_React$Component) {
   _inherits(Header, _React$Component);
@@ -368,21 +391,33 @@ var Header = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = function 
       var loginLogout = user ? _react2.default.createElement(
         'a',
         { onClick: appStore.signOut },
-        'Logout'
+        _react2.default.createElement(_reactFeather.LogOut, null)
       ) : _react2.default.createElement(
         _reactRouterDom.Link,
         { to: '/login' },
-        'Login'
+        _react2.default.createElement(_reactFeather.LogIn, null)
       );
       return _react2.default.createElement(
         HeaderContainer,
         null,
         _react2.default.createElement(
-          Title,
+          _WidthWrapper2.default,
           null,
-          'App Here'
-        ),
-        loginLogout
+          _react2.default.createElement(
+            Title,
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/' },
+              'Prayerify'
+            )
+          ),
+          _react2.default.createElement(
+            ActionItem,
+            null,
+            loginLogout
+          )
+        )
       );
     }
   }]);
@@ -390,6 +425,107 @@ var Header = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = function 
   return Header;
 }(_react2.default.Component)) || _class);
 exports.default = Header;
+
+/***/ }),
+
+/***/ 139:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _templateObject = _taggedTemplateLiteral(['\n  background-color: ', ';\n\n  .container {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    padding: 10px;\n  }\n\n  a {\n    display: block;\n    text-decoration: none;\n    margin: 0 1rem;\n\n    &:hover, &:active {\n      color:', ';\n    }\n  }\n'], ['\n  background-color: ', ';\n\n  .container {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    padding: 10px;\n  }\n\n  a {\n    display: block;\n    text-decoration: none;\n    margin: 0 1rem;\n\n    &:hover, &:active {\n      color:', ';\n    }\n  }\n']);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(29);
+
+var _styledComponents = __webpack_require__(14);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _mobxReact = __webpack_require__(19);
+
+var _WidthWrapper = __webpack_require__(52);
+
+var _WidthWrapper2 = _interopRequireDefault(_WidthWrapper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var NavSection = _styledComponents2.default.nav(_templateObject, function (props) {
+  return props.theme.lightPrimary;
+}, function (props) {
+  return props.theme.accent;
+});
+
+var NavItems = (0, _mobxReact.observer)(_class = function (_React$Component) {
+  _inherits(NavItems, _React$Component);
+
+  function NavItems() {
+    _classCallCheck(this, NavItems);
+
+    return _possibleConstructorReturn(this, (NavItems.__proto__ || Object.getPrototypeOf(NavItems)).apply(this, arguments));
+  }
+
+  _createClass(NavItems, [{
+    key: 'render',
+    value: function render() {
+      var user = this.props.user;
+
+      return _react2.default.createElement(
+        NavSection,
+        null,
+        _react2.default.createElement(
+          _WidthWrapper2.default,
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/' },
+            'Home'
+          ),
+          user ? null : _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/login' },
+            'Login'
+          ),
+          user ? _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/user' },
+            'User'
+          ) : null,
+          user ? _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/prayer/new' },
+            'New'
+          ) : null
+        )
+      );
+    }
+  }]);
+
+  return NavItems;
+}(_react2.default.Component)) || _class;
+
+exports.default = NavItems;
 
 /***/ }),
 
@@ -404,11 +540,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = PrivatRoute;
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(50);
+var _reactRouterDom = __webpack_require__(29);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -423,7 +559,7 @@ function PrivatRoute(props) {
       otherProps = _objectWithoutProperties(props, ['path', 'exact', 'component', 'user']);
 
   return _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: path, render: function render(scopeProps) {
-      return user ? _react2.default.createElement(Component, { user: user }) : _react2.default.createElement(_reactRouterDom.Redirect, { to: { pathname: '/login', state: { from: scopeProps.location } } });
+      return user ? _react2.default.createElement(Component, { user: user, routeProps: scopeProps }) : _react2.default.createElement(_reactRouterDom.Redirect, { to: { pathname: '/login', state: { from: scopeProps.location } } });
     } });
 }
 
@@ -435,10 +571,30 @@ function PrivatRoute(props) {
 "use strict";
 
 
-module.exports = {
-  white: '#fff',
-  lightGrey: '#efefef'
-};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _templateObject = _taggedTemplateLiteral(['\n  html, body {\n    padding: 0;\n    margin: 0;\n    font-size: 18px;\n    color: ', ';\n    font-family: San Francisco, Roboto, sans-serif;\n  }\n\n  @media(max-width: 414px) {\n    html, body {\n      font-size: 16px;\n    }\n  }\n\n  body {\n    background-color: ', ';\n    min-height: 100vh;\n  }\n\n  main {\n    height: 100%;\n    width: 100%;\n  }\n\n  html {\n    background-color: ', ';\n  }\n\n  .container {\n    position: relative;\n    width: 100%;\n    max-width: 1280px;\n    box-sizing: border-box;\n    margin: 0 auto;\n  }\n\n  a {\n    cursor: pointer;\n  }\n'], ['\n  html, body {\n    padding: 0;\n    margin: 0;\n    font-size: 18px;\n    color: ', ';\n    font-family: San Francisco, Roboto, sans-serif;\n  }\n\n  @media(max-width: 414px) {\n    html, body {\n      font-size: 16px;\n    }\n  }\n\n  body {\n    background-color: ', ';\n    min-height: 100vh;\n  }\n\n  main {\n    height: 100%;\n    width: 100%;\n  }\n\n  html {\n    background-color: ', ';\n  }\n\n  .container {\n    position: relative;\n    width: 100%;\n    max-width: 1280px;\n    box-sizing: border-box;\n    margin: 0 auto;\n  }\n\n  a {\n    cursor: pointer;\n  }\n']);
+
+var _styledComponents = __webpack_require__(14);
+
+var _reset = __webpack_require__(142);
+
+var _reset2 = _interopRequireDefault(_reset);
+
+var _theme = __webpack_require__(143);
+
+var _theme2 = _interopRequireDefault(_theme);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* SACRILIGE!! */
+
+
+(0, _styledComponents.injectGlobal)(_templateObject, _theme2.default.primaryText, _theme2.default.bgColor, _theme2.default.htmlColor);
+
+exports.default = _theme2.default;
 
 /***/ }),
 
@@ -448,24 +604,14 @@ module.exports = {
 "use strict";
 
 
-var _templateObject = _taggedTemplateLiteral(['\n  html, body {\n    padding: 0;\n    margin: 0;\n    font-size: 18px;\n    font-family: San Francisco, Roboto, sans-serif;\n  }\n\n  body {\n    background-color: ', ';\n    min-height: 100vh;\n  }\n\n  html {\n    background-color: ', ';\n  }\n'], ['\n  html, body {\n    padding: 0;\n    margin: 0;\n    font-size: 18px;\n    font-family: San Francisco, Roboto, sans-serif;\n  }\n\n  body {\n    background-color: ', ';\n    min-height: 100vh;\n  }\n\n  html {\n    background-color: ', ';\n  }\n']);
+var _templateObject = _taggedTemplateLiteral(['\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: \'\';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\n'], ['\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: \'\';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\n']);
 
-var _styledComponents = __webpack_require__(19);
+var _styledComponents = __webpack_require__(14);
 
-var _reset = __webpack_require__(143);
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var _reset2 = _interopRequireDefault(_reset);
-
-var _colors = __webpack_require__(141);
-
-var _colors2 = _interopRequireDefault(_colors);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* SACRILIGE!! */
-
-
-(0, _styledComponents.injectGlobal)(_templateObject, _colors2.default.white, _colors2.default.lightGrey);
+//reset
+(0, _styledComponents.injectGlobal)(_templateObject);
 
 /***/ }),
 
@@ -475,14 +621,22 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 "use strict";
 
 
-var _templateObject = _taggedTemplateLiteral(['\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: \'\';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\n'], ['\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: \'\';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\n']);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var baseTheme = {
+  darkPrimary: '#616161',
+  primary: '#9E9E9E',
+  lightPrimary: '#f5f5f5',
+  primaryText: '#212121',
+  secondaryText: '#757575',
+  dividerColor: '#BDBDBD',
+  accent: '#8BC34A',
+  bgColor: '#fff',
+  htmlColor: '#eee'
+};
 
-var _styledComponents = __webpack_require__(19);
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-//reset
-(0, _styledComponents.injectGlobal)(_templateObject);
+exports.default = baseTheme;
 
 /***/ }),
 
@@ -492,19 +646,19 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 "use strict";
 
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(83);
+var _reactDom = __webpack_require__(81);
 
-var _mobxReact = __webpack_require__(21);
+var _mobxReact = __webpack_require__(19);
 
-var _App = __webpack_require__(137);
+var _App = __webpack_require__(136);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _appStore = __webpack_require__(138);
+var _appStore = __webpack_require__(137);
 
 var _appStore2 = _interopRequireDefault(_appStore);
 
@@ -531,7 +685,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Home;
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -564,27 +718,27 @@ var _dec, _class;
 
 var _templateObject = _taggedTemplateLiteral(['\n  padding: 1rem;\n  margin: 1rem auto;\n  max-width: 250px;\n  border: 1px solid #ccc;\n\n  label {\n    display: block;\n    font-size: 0.75rem;\n    margin-bottom: 6px;\n  }\n\n  > p, h3 {\n    margin-bottom: 0.5rem;\n  }\n'], ['\n  padding: 1rem;\n  margin: 1rem auto;\n  max-width: 250px;\n  border: 1px solid #ccc;\n\n  label {\n    display: block;\n    font-size: 0.75rem;\n    margin-bottom: 6px;\n  }\n\n  > p, h3 {\n    margin-bottom: 0.5rem;\n  }\n']);
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _mobxReact = __webpack_require__(21);
+var _mobxReact = __webpack_require__(19);
 
-var _reactRouterDom = __webpack_require__(50);
+var _reactRouterDom = __webpack_require__(29);
 
-var _styledComponents = __webpack_require__(19);
+var _styledComponents = __webpack_require__(14);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _Button = __webpack_require__(84);
+var _Button = __webpack_require__(82);
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _Input = __webpack_require__(85);
+var _Input = __webpack_require__(83);
 
 var _Input2 = _interopRequireDefault(_Input);
 
-var _Label = __webpack_require__(86);
+var _Label = __webpack_require__(84);
 
 var _Label2 = _interopRequireDefault(_Label);
 
@@ -698,25 +852,29 @@ var _dec, _class;
 var _templateObject = _taggedTemplateLiteral(['\n  padding: 1rem;\n  max-width: 414px;\n  box-sizing: border-box;\n  margin: 0 auto;\n  p {\n    padding: 0 0 1rem;\n  }\n'], ['\n  padding: 1rem;\n  max-width: 414px;\n  box-sizing: border-box;\n  margin: 0 auto;\n  p {\n    padding: 0 0 1rem;\n  }\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n  display: block;\n  border: 1px solid #aaa;\n  padding: 0.25rem;\n  outline: none;\n  width: 100%;\n  height: 100px;\n  box-sizing: border-box;\n'], ['\n  display: block;\n  border: 1px solid #aaa;\n  padding: 0.25rem;\n  outline: none;\n  width: 100%;\n  height: 100px;\n  box-sizing: border-box;\n']);
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _mobxReact = __webpack_require__(21);
+var _mobxReact = __webpack_require__(19);
 
-var _styledComponents = __webpack_require__(19);
+var _styledComponents = __webpack_require__(14);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _Button = __webpack_require__(84);
+var _history = __webpack_require__(86);
+
+var _history2 = _interopRequireDefault(_history);
+
+var _Button = __webpack_require__(82);
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _Input = __webpack_require__(85);
+var _Input = __webpack_require__(83);
 
 var _Input2 = _interopRequireDefault(_Input);
 
-var _Label = __webpack_require__(86);
+var _Label = __webpack_require__(84);
 
 var _Label2 = _interopRequireDefault(_Label);
 
@@ -741,7 +899,8 @@ var NewPrayer = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = functi
     _this.state = {
       title: '',
       description: '',
-      pinned: false
+      pinned: false,
+      public: false
     };
     return _this;
   }
@@ -749,7 +908,9 @@ var NewPrayer = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = functi
   _createClass(NewPrayer, [{
     key: 'submitForm',
     value: function submitForm(e) {
-      appStore.submitPrayer(this.state);
+      e.preventDefault();
+      this.props.appStore.submitPrayer(this.state);
+      _history2.default.push('/');
     }
   }, {
     key: 'render',
@@ -764,19 +925,23 @@ var NewPrayer = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = functi
         _react2.default.createElement(
           'h3',
           null,
-          'New'
+          'New Prayer'
         ),
         _react2.default.createElement(
           'p',
           null,
           _react2.default.createElement(_Label2.default, { name: 'title', text: 'Title' }),
-          _react2.default.createElement(_Input2.default, { type: 'text', name: 'title' })
+          _react2.default.createElement(_Input2.default, { type: 'text', name: 'title', onInput: function onInput(e) {
+              return _this2.setState({ title: e.target.value });
+            } })
         ),
         _react2.default.createElement(
           'p',
           null,
           _react2.default.createElement(_Label2.default, { name: 'description', text: 'Description' }),
-          _react2.default.createElement(StyledTextarea, { name: 'description' })
+          _react2.default.createElement(StyledTextarea, { name: 'description', onInput: function onInput(e) {
+              return _this2.setState({ description: e.target.value });
+            } })
         ),
         _react2.default.createElement(
           'p',
@@ -788,6 +953,18 @@ var NewPrayer = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = functi
             'label',
             { htmlFor: 'pinned' },
             'Pinned?'
+          )
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          _react2.default.createElement('input', { type: 'checkbox', name: 'public', onChange: function onChange(e) {
+              _this2.setState({ public: e.target.value === 'on' });
+            } }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'public' },
+            'Make Public?'
           )
         ),
         _react2.default.createElement(
@@ -821,15 +998,31 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _dec, _class;
 
-var _react = __webpack_require__(4);
+var _templateObject = _taggedTemplateLiteral(['\n  padding: 1rem;\n'], ['\n  padding: 1rem;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  margin: 0;\n  padding-bottom: 1rem;\n'], ['\n  margin: 0;\n  padding-bottom: 1rem;\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  padding: 1rem;\n  border-bottom: 1px solid ', ';\n\n  &:last-child {\n    border: none;\n  }\n'], ['\n  padding: 1rem;\n  border-bottom: 1px solid ', ';\n\n  &:last-child {\n    border: none;\n  }\n']);
+
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _mobxReact = __webpack_require__(21);
+var _mobxReact = __webpack_require__(19);
+
+var _styledComponents = __webpack_require__(14);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _reactRouterDom = __webpack_require__(29);
+
+var _WidthWrapper = __webpack_require__(52);
+
+var _WidthWrapper2 = _interopRequireDefault(_WidthWrapper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -838,6 +1031,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var UserContainer = _styledComponents2.default.section(_templateObject);
+
+var List = _styledComponents2.default.ul(_templateObject2);
+
+var Item = _styledComponents2.default.li(_templateObject3, function (props) {
+  return props.theme.dividerColor;
+});
 
 var User = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = function (_React$Component) {
   _inherits(User, _React$Component);
@@ -859,34 +1062,23 @@ var User = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = function (_
       var prayers = [];
 
       for (var prayer in this.state.prayers) {
-        // console.log('users', prayer, this.state.prayers[prayer])
-        prayers.push(this.state.prayers[prayer]);
+        prayers.push(_extends({
+          fbId: prayer
+        }, this.state.prayers[prayer]));
       }
 
-      var prayerItems = prayers.map(function (p, index) {
-        return _react2.default.createElement(
-          'li',
-          { key: index },
-          _react2.default.createElement(
-            'span',
-            null,
-            p.title
-          )
-        );
-      });
-
       return _react2.default.createElement(
-        'section',
+        UserContainer,
         null,
         _react2.default.createElement(
-          'h1',
+          _WidthWrapper2.default,
           null,
-          'User'
-        ),
-        _react2.default.createElement(
-          'ul',
-          null,
-          prayerItems
+          _react2.default.createElement(
+            'h2',
+            null,
+            'Prayers'
+          ),
+          _react2.default.createElement(PrayerList, { prayers: prayers })
         )
       );
     }
@@ -896,9 +1088,34 @@ var User = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = function (_
 }(_react2.default.Component)) || _class);
 exports.default = User;
 
+
+function PrayerItem(props) {
+  return _react2.default.createElement(
+    Item,
+    null,
+    _react2.default.createElement(
+      _reactRouterDom.Link,
+      { to: 'prayer/details/' + props.fbId },
+      props.title
+    )
+  );
+}
+
+function PrayerList(_ref) {
+  var prayers = _ref.prayers;
+
+  return _react2.default.createElement(
+    List,
+    null,
+    prayers.map(function (prayer, index) {
+      return _react2.default.createElement(PrayerItem, _extends({ key: index }, prayer));
+    })
+  );
+}
+
 /***/ }),
 
-/***/ 149:
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -907,32 +1124,136 @@ exports.default = User;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = WidthWrapper;
 
-var _history = __webpack_require__(199);
-
-exports.default = (0, _history.createBrowserHistory)();
-
-/***/ }),
-
-/***/ 84:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _templateObject = _taggedTemplateLiteral(['\n  width: 100%;\n  background-color: palevioletred;\n  border: none;\n  color: white;\n  padding: 0.5rem;\n  box-sizing: border-box;\n  text-align: center;\n  font-size: 1.1rem;\n\n  &:active {\n    background-color: pink;\n  }\n'], ['\n  width: 100%;\n  background-color: palevioletred;\n  border: none;\n  color: white;\n  padding: 0.5rem;\n  box-sizing: border-box;\n  text-align: center;\n  font-size: 1.1rem;\n\n  &:active {\n    background-color: pink;\n  }\n']);
-
-exports.default = Button;
-
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _styledComponents = __webpack_require__(19);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function WidthWrapper(props) {
+  return _react2.default.createElement(
+    "div",
+    { className: "container" },
+    props.children
+  );
+}
+
+/***/ }),
+
+/***/ 536:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _mobxReact = __webpack_require__(19);
+
+var _styledComponents = __webpack_require__(14);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _reactRouterDom = __webpack_require__(29);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PrayerDetails = (_dec = (0, _mobxReact.inject)('appStore'), _dec(_class = function (_React$Component) {
+  _inherits(PrayerDetails, _React$Component);
+
+  function PrayerDetails() {
+    _classCallCheck(this, PrayerDetails);
+
+    return _possibleConstructorReturn(this, (PrayerDetails.__proto__ || Object.getPrototypeOf(PrayerDetails)).apply(this, arguments));
+  }
+
+  _createClass(PrayerDetails, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          appStore = _props.appStore,
+          fbId = _props.routeProps.match.params.fbId;
+
+      var _appStore$getPrayer = appStore.getPrayer(fbId),
+          closed = _appStore$getPrayer.closed,
+          createdDate = _appStore$getPrayer.createdDate,
+          description = _appStore$getPrayer.description,
+          pinned = _appStore$getPrayer.pinned,
+          title = _appStore$getPrayer.title,
+          uid = _appStore$getPrayer.uid;
+
+      console.log('PRAYER DEETS', closed, createdDate, description, pinned, title, uid);
+      return _react2.default.createElement(
+        'section',
+        null,
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/user' },
+          '< Back'
+        ),
+        _react2.default.createElement(
+          'h3',
+          null,
+          title
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          description
+        ),
+        _react2.default.createElement(
+          'em',
+          null,
+          new Date(createdDate).toLocaleString()
+        )
+      );
+    }
+  }]);
+
+  return PrayerDetails;
+}(_react2.default.Component)) || _class);
+exports.default = PrayerDetails;
+
+/***/ }),
+
+/***/ 82:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _templateObject = _taggedTemplateLiteral(['\n  width: 100%;\n  background-color: ', ';\n  border: none;\n  color: white;\n  padding: 0.5rem;\n  box-sizing: border-box;\n  text-align: center;\n  font-size: 1.1rem;\n\n  &:active {\n    background-color: pink;\n  }\n'], ['\n  width: 100%;\n  background-color: ', ';\n  border: none;\n  color: white;\n  padding: 0.5rem;\n  box-sizing: border-box;\n  text-align: center;\n  font-size: 1.1rem;\n\n  &:active {\n    background-color: pink;\n  }\n']);
+
+exports.default = Button;
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = __webpack_require__(14);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
@@ -948,11 +1269,13 @@ function Button(props) {
   );
 }
 
-var StyledButton = _styledComponents2.default.button(_templateObject);
+var StyledButton = _styledComponents2.default.button(_templateObject, function (props) {
+  return props.theme.accent;
+});
 
 /***/ }),
 
-/***/ 85:
+/***/ 83:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -964,11 +1287,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _templateObject = _taggedTemplateLiteral(['\n  display: block;\n  border-radius: 0px;\n  border: 1px solid #aaa;\n  padding: 0.25rem;\n  outline: none;\n  width: 100%;\n  box-sizing: border-box;\n'], ['\n  display: block;\n  border-radius: 0px;\n  border: 1px solid #aaa;\n  padding: 0.25rem;\n  outline: none;\n  width: 100%;\n  box-sizing: border-box;\n']);
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _styledComponents = __webpack_require__(19);
+var _styledComponents = __webpack_require__(14);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
@@ -982,7 +1305,7 @@ exports.default = Input;
 
 /***/ }),
 
-/***/ 86:
+/***/ 84:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -996,15 +1319,15 @@ var _templateObject = _taggedTemplateLiteral(['\n  display: block;\n  font-size:
 
 exports.default = Label;
 
-var _react = __webpack_require__(4);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _styledComponents = __webpack_require__(19);
+var _styledComponents = __webpack_require__(14);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _propTypes = __webpack_require__(8);
+var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -1033,7 +1356,7 @@ var StyledLabel = _styledComponents2.default.label(_templateObject);
 
 /***/ }),
 
-/***/ 87:
+/***/ 85:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1044,7 +1367,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.db = exports.auth = undefined;
 
-var _firebase = __webpack_require__(169);
+var _firebase = __webpack_require__(168);
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
@@ -1065,6 +1388,22 @@ exports.default = io;
 var auth = exports.auth = io.auth();
 
 var db = exports.db = io.database();
+
+/***/ }),
+
+/***/ 86:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _history = __webpack_require__(192);
+
+exports.default = (0, _history.createBrowserHistory)();
 
 /***/ })
 

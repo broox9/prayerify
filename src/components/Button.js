@@ -7,7 +7,7 @@ export default function Button(props) {
 
 const StyledButton = styled.button`
   width: 100%;
-  background-color: palevioletred;
+  background-color: ${props => props.theme.accent};
   border: none;
   color: white;
   padding: 0.5rem;

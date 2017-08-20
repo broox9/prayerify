@@ -2,6 +2,14 @@ import {observable, action} from 'mobx';
 import io, {auth, db} from '../util/firebase';
 
 class AppStore {
+  constructor() {
+    this.prayerRef = db.ref('/prayers');
+
+    this.prayerRef.on('value', (snapShot) => {
+      this.prayers = snapShot.val();
+    })
+  }
+
   @observable user = auth.currentUser;
 
   @observable prayers = {};
@@ -29,16 +37,22 @@ class AppStore {
   @action getPrayers() {
     return this.prayers;
   }
-  
+
+  @action getPrayer(id) {
+    return this.prayers[id] || null
+  }
+
   @action submitPrayer(prayer) {
     console.log('prayer', prayer);
+    const newPrayerRef = this.prayerRef.push();
+    newPrayerRef.set(prayer);
   }
 }
 
-db.ref('/prayers').on('value', (snapShot) => {
-  console.log('REFS', snapShot.val() instanceof Array);
-  appStore.prayers = snapShot.val();
-})
+// db.ref('/prayers').on('value', (snapShot) => {
+//   console.log('REFS', snapShot.val() instanceof Array);
+//   appStore.prayers = snapShot.val();
+// })
 
 const appStore = new AppStore();
 export default appStore;
