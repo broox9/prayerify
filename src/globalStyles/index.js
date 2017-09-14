@@ -7,15 +7,9 @@ injectGlobal`
   html, body {
     padding: 0;
     margin: 0;
-    font-size: 18px;
+    font-size: 16px;
     color: ${theme.primaryText};
     font-family: San Francisco, Roboto, sans-serif;
-  }
-
-  @media(max-width: 414px) {
-    html, body {
-      font-size: 16px;
-    }
   }
 
   body {
@@ -32,16 +26,10 @@ injectGlobal`
     background-color: ${theme.htmlColor};
   }
 
-  .container {
-    position: relative;
-    width: 100%;
-    max-width: 1280px;
-    box-sizing: border-box;
-    margin: 0 auto;
-  }
-
   a {
     cursor: pointer;
+    text-decoration: none;
+    color: ${theme.accent};
   }
 `;
 

@@ -1,12 +1,11 @@
-import React from 'react';
-import {inject} from 'mobx-react';
-import styled from 'styled-components';
-import {Link} from 'react-router-dom';
-import WidthWrapper from '../components/WidthWrapper';
+import React from "react";
+// import {inject} from 'mobx-react';
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import WidthWrapper from "../components/WidthWrapper";
 
-const UserContainer = styled.section`
-  padding: 1rem;
-`;
+const UserContainer = styled.section`padding: 1rem;`;
 
 const List = styled.ul`
   margin: 0;
@@ -22,48 +21,34 @@ const Item = styled.li`
   }
 `;
 
-@inject('appStore')
-export default class User extends React.Component {
-  constructor(props) {
-    super();
+const mapStateToProps = state => ({ prayers: state.prayers.list });
 
-    this.state = {
-      prayers: props.appStore.getPrayers()
-    };
-  }
-  render() {
-    const prayers = [];
+export default connect(mapStateToProps)(User);
 
-    for (let prayer in this.state.prayers) {
-      prayers.push({
-        fbId: prayer,
-        ...this.state.prayers[prayer]
-      });
-    }
-
-    return (
-      <UserContainer>
-        <WidthWrapper>
-          <h2>Prayers</h2>
-          <PrayerList prayers={prayers} />
-        </WidthWrapper>
-      </UserContainer>
-    )
-  }
+function User({ prayers }) {
+  return (
+    <UserContainer>
+      <WidthWrapper>
+        <PrayerList prayers={prayers} />
+      </WidthWrapper>
+    </UserContainer>
+  );
 }
 
 function PrayerItem(props) {
-  return <Item><Link to={`prayer/details/${props.fbId}`}>{props.title}</Link></Item>
+  return (
+    <Item>
+      <Link to={`prayer/details/${props.fbId}`}>{props.title}</Link>
+    </Item>
+  );
 }
 
-function PrayerList({prayers}) {
+function PrayerList({ prayers }) {
   return (
     <List>
-      {
-        prayers.map((prayer, index) => {
-          return (<PrayerItem key={index} {...prayer} />)
-        })
-      }
+      {prayers.map((prayer, index) => {
+        return <PrayerItem key={prayer.fbId || index} {...prayer} />;
+      })}
     </List>
-  )
+  );
 }
