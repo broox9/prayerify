@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepm2": "npm run build",
+    "pm2": "pm2 server/server.js",
     "start": "NODE_ENV=production ./node_modules/.bin/nodemon server/server.js",
     "build": "./node_modules/.bin/webpack",
     "watch": "npm run build -- -w",
