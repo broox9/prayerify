@@ -1,7 +1,10 @@
 import React from 'react';
+import WidthWrapper from '../components/WidthWrapper'
 
 export default function Home() {
   return (
-    <h1>Home</h1>
+    <WidthWrapper>
+      <h1>Home</h1>
+    </WidthWrapper>
   )
 }

@@ -1,10 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Input = styled.input`
   display: block;
   border-radius: 0px;
-  border: 1px solid #aaa;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid ${props => props.theme.accent};
   padding: 0.25rem;
   outline: none;
   width: 100%;

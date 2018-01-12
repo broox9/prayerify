@@ -1,14 +1,11 @@
-import React from 'react';
-import {render} from 'react-dom';
-import {Provider} from 'mobx-react';
+import React from "react";
+import { render } from "react-dom";
+import { Provider } from "mobx-react";
 
-import App from './App';
-import appStore from './stores/appStore';
+import App from "./App";
+import appStore from "./stores/mobxStore";
+import setupStore from "./stores/reduxStore";
 
-const AppWithStore = (
-  <Provider appStore={appStore}>
-    <App />
-  </Provider>
-);
+const appStore2 = setupStore(/* pass initial state */);
 
-render(AppWithStore, document.querySelector('main'));
+render(<App store={appStore2} />, document.querySelector("main"));
