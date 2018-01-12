@@ -12,8 +12,6 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import Label from "../components/Label";
 
-
-
 class NewPrayer extends React.Component {
   constructor() {
     super();
@@ -78,10 +76,10 @@ class NewPrayer extends React.Component {
 }
 
 const mapDispatchProps = dispatch => ({
-  submitPrayer: (prayer) => dispatch(createPrayer(prayer))
+  submitPrayer: prayer => dispatch(createPrayer(prayer))
 });
 
-export default connect((state) => ({}), mapDispatchProps)(NewPrayer);
+export default connect(state => ({}), mapDispatchProps)(NewPrayer);
 
 const StyledForm = styled.form`
   padding: 1rem;
@@ -95,7 +93,10 @@ const StyledForm = styled.form`
 
 const StyledTextarea = styled.textarea`
   display: block;
-  border: 1px solid #aaa;
+  color: ${props => props.theme.primaryText};
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid ${props => props.theme.accent};
   padding: 0.25rem;
   outline: none;
   width: 100%;

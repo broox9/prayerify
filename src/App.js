@@ -38,7 +38,7 @@ const StyledSplash = styled(Splash)`
   align-items: center;
   height: 100%;
   width: 100%;
-  background-color: lightgrey;
+  background-color: ${props => props.theme.bgColor || "#fff"};
   z-index: 2;
   transition: left 350ms ease-in;
 
