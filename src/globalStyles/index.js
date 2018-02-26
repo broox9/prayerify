@@ -1,7 +1,9 @@
 /* SACRILIGE!! */
-import {injectGlobal} from 'styled-components';
-import reset from './reset';
+import { injectGlobal } from 'styled-components';
+import sanitize from './sanitize';
 import theme from './theme';
+
+console.log('THEME', theme)
 
 injectGlobal`
   html, body {
@@ -23,7 +25,7 @@ injectGlobal`
   }
 
   html {
-    background-color: ${theme.htmlColor};
+    background-color: ${theme.colors.lightRed};
   }
 
   a {

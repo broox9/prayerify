@@ -1,0 +1,8 @@
+{
+  "name": "Prayerify",
+  "watch": true,
+  "script": "./server/server.js",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

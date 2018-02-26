@@ -24,7 +24,7 @@ server.set("view engine", "pug");
 server.set("views", __dirname + "/views");
 server.use(express.static(process.cwd() + "/public"));
 
-server.get("*", (req, res) => {
+server.get(["/user/?:user", "/prayer/?new", "/"], (req, res) => {
   res.render("index", { pageTitle: "Some App" });
 });
 

@@ -7,7 +7,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { connect } from "react-redux";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
-import baseTheme from "./globalStyles";
+import theme from "./globalStyles";
 import history from "./services/history";
 
 //actions
@@ -26,11 +26,11 @@ import Splash from "./pages/Splash";
 import Header from "./components/Header";
 
 const StyledApp = styled.div`
-  background-color: ${props => props.theme.bgColor || "#fff"};
+  background-color: ${props => props.theme.colors && props.theme.colors.lightGray || "#fff"};
   height: 100%;
   width: 100%:
 `;
-const StyledSplash = styled(Splash)`
+const StyledSplash = styled(Splash) `
   position: fixed;
   left: 0;
   display: flex;
@@ -38,7 +38,7 @@ const StyledSplash = styled(Splash)`
   align-items: center;
   height: 100%;
   width: 100%;
-  background-color: ${props => props.theme.bgColor || "#fff"};
+  background-color: ${props => props.theme.colors && props.theme.colors.lightGray || "#fff"};
   z-index: 2;
   transition: left 350ms ease-in;
 
@@ -77,7 +77,7 @@ export default class App extends React.Component {
     return (
       <BrowserRouter history={history}>
         <Provider store={store}>
-          <ThemeProvider theme={baseTheme}>
+          <ThemeProvider theme={theme}>
             <StyledApp id="content">
               <StyledSplash className={hasAuthBeenChecked ? "hidden" : null} />
               <Header />

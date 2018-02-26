@@ -24,7 +24,7 @@ const HeaderContainer = styled.header`
 `;
 
 const Title = styled.h1`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin: 0;
   padding: 0;
   color: ${props => props.theme.accentLight};
@@ -35,8 +35,8 @@ const Title = styled.h1`
   }
 `;
 
-const HomeLink = styled(Link)`
-  // color: ${props => props.theme.lightPrimary};
+const HomeLink = styled(Link) `
+  color: ${props => props.theme.lightPrimary};
   margin-right: 1rem;
 `;
 

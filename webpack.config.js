@@ -2,11 +2,11 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = (env) => {
-  console.log('WEBPACK ENV',  process.env.NODE_ENV)
+  console.log('WEBPACK ENV', process.env.NODE_ENV)
   const IS_PROD = process.env.NODE_ENV === 'production';
   return {
     context: __dirname,
-    devtool: IS_PROD ? "source-map" : '',
+    devtool: IS_PROD ? "source-map" : 'cheap-eval-souce-map',
     entry: {
       app: "./src/index.js"
     },
@@ -22,8 +22,10 @@ module.exports = (env) => {
       historyApiFallback: true,
       hot: true,
       setup(app) {
-        app.get('*', (req, res) => {
-          res.sendFile(path.resolve(__dirname, '/public/dev_index.html'));
+        app.get('/', (req, res) => {
+          const indexPath = path.join(process.cwd(), '/public/index.html')
+          console.log('index ~>', indexPath)
+          res.sendFile(indexPath);
         });
       }
     },
@@ -52,7 +54,7 @@ module.exports = (env) => {
       //code split anything that comes from /node_modules/ to vendor.bundle.js
       new webpack.optimize.CommonsChunkPlugin({
         name: "vendor",
-        minChunks: function(module) {
+        minChunks: function (module) {
           return module.context && module.context.indexOf("node_modules") !== -1;
         }
       }),

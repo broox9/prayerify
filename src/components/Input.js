@@ -6,7 +6,7 @@ const Input = styled.input`
   border-radius: 0px;
   background: transparent;
   border: none;
-  border-bottom: 1px solid ${props => props.theme.accent};
+  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   padding: 0.25rem;
   outline: none;
   width: 100%;
