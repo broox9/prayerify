@@ -18,8 +18,9 @@ const HeaderContainer = styled.header`
   vertical-align: middle;
   padding: 1rem;
   box-sizing: border-box;
-  //background-color: ${props => props.theme.primary};
-  //border-top: 0.5rem solid ${props => props.theme.darkPrimary};
+  color: white;
+  /* //background-color: ${props => props.theme.primary}; */
+  border-top: 0.5rem solid ${props => props.theme.colors.black};
   text-align: center;
 `;
 
@@ -27,16 +28,15 @@ const Title = styled.h1`
   font-size: 1.25rem;
   margin: 0;
   padding: 0;
-  color: ${props => props.theme.accentLight};
   display: inline-block;
 
   a {
-    color: ${props => props.theme.accentLight};
+    color: ${props => props.theme.colors.lightBlue};
   }
 `;
 
 const HomeLink = styled(Link) `
-  color: ${props => props.theme.lightPrimary};
+  color: ${props => props.theme.colors.lightBlue};
   margin-right: 1rem;
 `;
 
@@ -50,7 +50,6 @@ const HeaderLeftWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: ${props => props.theme.bgColor};
 `
 
 function Header({ user, handleSignOut }) {

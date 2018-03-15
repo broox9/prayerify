@@ -26,10 +26,11 @@ import Splash from "./pages/Splash";
 import Header from "./components/Header";
 
 const StyledApp = styled.div`
-  background-color: ${props => props.theme.colors && props.theme.colors.lightGray || "#fff"};
+  background-color: ${props => props.theme.colors.darkBlue};
   height: 100%;
   width: 100%:
 `;
+
 const StyledSplash = styled(Splash) `
   position: fixed;
   left: 0;
@@ -38,7 +39,7 @@ const StyledSplash = styled(Splash) `
   align-items: center;
   height: 100%;
   width: 100%;
-  background-color: ${props => props.theme.colors && props.theme.colors.lightGray || "#fff"};
+  background-color: ${props => props.theme.colors.blue};
   z-index: 2;
   transition: left 350ms ease-in;
 

@@ -15,7 +15,7 @@ injectGlobal`
   }
 
   body {
-    background-color: ${theme.bgColor};
+    background-color: ${theme.colors.darkBlue};
     min-height: 100vh;
   }
 
@@ -25,13 +25,20 @@ injectGlobal`
   }
 
   html {
-    background-color: ${theme.colors.lightRed};
+    background-color: ${theme.colors.darkBlue};
+    color: ${theme.colors.white}
   }
 
   a {
     cursor: pointer;
     text-decoration: none;
-    color: ${theme.accent};
+    color: inherit;
+  }
+
+  ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 `;
 
